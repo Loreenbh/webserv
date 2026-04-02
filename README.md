@@ -24,3 +24,28 @@ Webserv is a custom HTTP server that supports:
 6. Logging requests (optional)
 
 ## Getting Started
+
+### Clone & Build
+```bash
+git clone https://github.com/Loreenbh/webserv.git
+cd webserv
+make
+```
+### Run the server
+```bash
+./webserv configs/default.conf
+```
+- Replace `configs/default.conf` with your own configuration if needed.
+- Open a browser or use `curl` to test the server:
+```bash
+curl http://localhost:8080
+```
+
+### Example Usage
+```bash
+$ ./webserv configs/default.conf
+Server started on port 8080
+Client connected: 127.0.0.1
+Request: GET /index.html HTTP/1.1
+Response: 200 OK
+```
