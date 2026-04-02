@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Webserver samples</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<script src="js/index.js" defer></script> <!-- charge le JS sans bloquer le rendu -->
+</head>
+<body>
+
+<header>
+	<h1>Webserver samples</h1>
+</header>
+
+<div class="container">
+	<!-- Colonne gauche : tests -->
+	<div class="left-column">
+		<!-- GET Test -->
+		<div class="card">
+
+			<h2>GET : Static page</h2>
+
+			<form method="GET" action="/loremipsum.html" target="resultFrame">
+				<button type="submit">send GET request</button>
+			</form>
+		</div>
+		<div class="card">
+
+			<h2>GET : Directory listing</h2>
+
+			<form method="GET" action="/list-dir" target="resultFrame">
+				<button type="submit">send GET request</button>
+			</form>
+		</div>
+		<!-- GET Test -->
+		<div class="card">
+
+			<h2>GET : PhpInfo</h2>
+			<form method="GET" action="/cgi-bin/phpinfo.php/toto" target="resultFrame">
+
+				<button type="submit">send GET request</button>
+			</form>
+		</div>
+		<!-- GET Test with-->
+		<div class="card">
+			<h2>GET : Query string </h2>
+			<p>Use this form to search for a word in the chosen file and change its color.</p>
+			<form method="GET" action="/cgi-bin/query_string.php/toto" target="resultFrame">
+				<label>parameters of GET's query string:</label>
+				<label>word :</label>
+				<input type="text" name="word" placeholder="ex: hello">
+				<label>color :</label>
+				<input type="text" name="color" placeholder="ex: red">
+				<label>File :</label>
+				<select name="file" id="file-select">
+					<option value="">-- Select a file --</option>
+					<!-- The options will be populated dynamically -->
+				</select>
+				<button type="submit">send GET request</button>
+			</form>
+		</div>
+
+		<!--File Download-->
+		<div class="card">
+			<h2>GET : Download a file</h2>
+			<label>File :</label>
+			<select name="file-to-download" id="file-select-download">
+				<option value="">-- Select a file --</option>
+				<!-- The options will be populated dynamically -->
+			</select>
+			<button onclick="downloadFile()">Download a file</button>
+		</div> <!-- Closing the card div for File Download -->
+
+		<!-- GET Test with JS -->
+		 <div  class="card">
+			<h2>GET : Gallery</h2>
+			<button id="loaderBtn" onclick="loadAlbum()">📸</button>
+		</div>
+
+		<!-- POST Test -->
+		<div class="card">
+			<h2>POST : Register</h2>
+			<form method="POST" action="/test-post" target="resultFrame">
+				<label>username :</label>
+				<input type="text" name="username">
+				<label>password :</label>
+				<input type="password" name="password">
+				<label>Email :</label>
+				<input type="email" name="email">
+				<button type="submit">Envoyer POST</button>
+			</form>
+		</div>
+		<!-- File Upload -->
+		<div class="card">
+			<h2>POST : Upload a file</h2>
+
+			<form id="uploadForm" method="POST" action="/test-upload" enctype="multipart/form-data" target="resultFrame">
+				<label>File :</label>
+				<input type="file" name="file-to-upload">
+				<button type="submit">Upload a file</button>
+			</form>
+		</div>
+
+
+		
+
+
+		<!-- File Delete -->
+		<div class="card">
+			<h2>DELETE : Delete a file</h2>
+
+			<label>File :</label>
+			<select name="file-to-delete" id="file-select-delete">
+				<option value="">-- Select a file --</option>
+				<!-- The options will be populated dynamically -->
+			</select>
+			<button onclick="deleteFile()">Delete a file</button>
+		</div>
+
+		<!-- Error 404 -->
+		<div class="card">
+			<h2>ERROR : 404 Not Found</h2>
+			<p>Click the button below to trigger a 404 error.</p>
+
+			<!-- Le champ file n'a pas de 'name' : cela rend la requête invalide pour certains serveurs -->
+			<form id="404" method="POST" action="/test-404" enctype="multipart/form-data" target="resultFrame">
+				<button type="submit">404</button>
+			</form>
+		</div>
+
+		<!-- Timeout error -->
+		<div class="card">
+			<h2>ERROR : Timeout</h2>
+			<p>Click the button below to trigger a timeout error.</p>
+			<form id="timeout" method="POST" action="/test-timeout" target="resultFrame">
+				<button type="submit">timeout</button>
+			</form>
+		</div>
+
+	</div>
+	<!-- Colonne droite : résultats -->
+	<div class="right-column">
+		<h2>result :</h2>
+		<iframe id="iframe-result" name="resultFrame" title="tests"></iframe>
+	</div>
+</div>
+<footer>
+	<p>&copy; 2025 42-webserv by lbegliom, glions, tissad</p>
+</footer>
+
+</body>
+</html>

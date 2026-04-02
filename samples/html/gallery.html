@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Album</title>
+<style>
+  body {
+    background: black;
+    margin: 0;
+    padding: 1rem;
+    font-family: Arial;
+  }
+
+  h2 {
+    text-align: center;
+    color: white;
+  }
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .gallery img {
+    width: calc((100% - 2rem) / 3); /* 3 images max par ligne avec gaps */
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    flex: 1 1 calc((100% - 2rem) / 3);
+  }
+</style>
+</head>
+<body>
+  <h2>Gallery</h2>
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    async function loadImages() {
+
+        try {
+            const response = await fetch('./cgi-bin/list_images.php'); //  adapte à ton chemin réel
+            if (!response.ok) {
+                throw new Error('Erreur de réseau');
+            }
+            const images = await response.json();
+            if (!Array.isArray(images)) {
+                throw new Error('Format de données inattendu');
+            }
+    
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = ''; // Clear previous
+    
+            images.forEach(src => {
+                const img = document.createElement('img');
+                img.src = "data/images/"+src; // Fixed path concatenation
+                img.style.width = '200px';
+                img.style.borderRadius = '8px';
+                img.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+                gallery.appendChild(img);
+            });
+        } catch (e) {
+            console.error('Erreur de chargement des images :', e);
+        }
+    }
+    </script>
+</body>
+</html>
